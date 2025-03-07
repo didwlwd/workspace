@@ -19,18 +19,7 @@
     
     td{
     	border : 1px solid white;
-    	box-sizing: border-box;
-    }
-
-	#list-area th{
-		border: 1px solid white;
-	}
-
-	#list-area tbody tr:hover{
-		background: rgb(80, 92, 116);
-        cursor: pointer;
-        font-size: 18px;
-	}
+    }}
 </style>
 </head>
 <body>
@@ -76,7 +65,7 @@
             </thead>
             <tbody>
                 <c:forEach var="b" items="${list}">
-                	<tr onclick="location.href='${pageContext.request.contextPath}/'">
+                	<tr>
                 		<td>${b.boardNo}</td>
                 		<td>${b.boardTitle}</td>
                 		<td>${b.userId}</td>
