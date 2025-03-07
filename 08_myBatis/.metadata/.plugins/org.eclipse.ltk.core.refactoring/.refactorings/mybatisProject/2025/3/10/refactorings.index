@@ -1,0 +1,12 @@
+1741224552155	Copy file
+1741229043049	Move 'common' to 'views'
+1741229319799	Move 'board' to 'views'
+1741229320946	Move 'member' to 'views'
+1741229917595	Rename resource 'boardlistview.jsp'
+1741229923573	Rename resource 'errorpage.jsp'
+1741229935257	Rename resource 'memberenrollform.jsp'
+1741248932912	Rename source folder 'resource'
+1741250714037	Rename resource 'boardMyPageView.jsp'
+1741250715856	Move 'MyPageView.jsp' to 'member'
+1741250849066	Rename resource 'MyPageView.jsp'
+1741306810117	Rename package 'com.kh.mybatis.board.model.service'

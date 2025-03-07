@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 외부라이브러리 -->
+    <!-- jQuery 3.7.1 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- jQueryUI 1.14.1 -->
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
+
+    <style>
+        .area{
+            border: 1px solid black;
+            height: 300px;
+        }
+
+        .qa-box > div{
+            width: 300px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            background: rgb(241, 241, 168);
+            border: 1px solid rgb(253, 253, 74);
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .qa-box > p{
+            border: 1px solid rgb(167, 167, 147);
+            width: 300px;
+            height: max-content;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>jQuery</h1>
+
+    <h3>jQuery 이벤트</h3>
+
+    <input type="submit" value="완료">
+
+    <script>
+        // $(':submit').mouseenter(function(){
+        //     $(this).val("제출하기");
+        // })
+
+        // $(':submit').mouseleave(function(){
+        //     $(this).val("완료");
+        // })
+
+        //hover(mouseenter시 실행할 함수, mouseleave실행할 함수)
+        $(":submit").hover(function(){
+            $(this).val("제출하기");
+        }, function(){
+            $(this).val("완료")
+        })
+    </script>
+
+    <hr>
+
+    <div class="area" id="wrap">
+        <h6>클릭시 h6요소 추가</h6>
+    </div>
+
+    <script>
+        //방법1 이벤트 메서드 -> 동적으로 만들어진 요소에 이벤트 적용 안됨
+        // $('#wrap > h6').click(function(){
+        //     $('#wrap').append('<h6>클릭시 h6요소 추가</h6>');
+        // })
+
+        //방법2 on메서드
+        // $('#wrap > h6').on("click",function(){
+        //     $('#wrap').append('<h6>클릭시 h6요소 추가</h6>');
+        // })
+
+        //방법3 $(부모요소).on(이벤트명, 자식요소, 실행할 함수) -> 자식요소에 동적으로 함수가 연결됨
+        // $('#wrap').on("click", "h6",function(){
+        //     $('#wrap').append('<h6>클릭시 h6요소 추가</h6>');
+        // })
+
+        $('#wrap > h6').click("click",function(){
+            const wrap = document.getElementById('wrap');
+            const h6El = document.createElement('h6'); //동적으로 <h6></h6>
+            h6El.innerText = "클릭시 h6요소 추가"; //<h6>클릭시 h6요소 추가</h6>
+            addClickEvent(h6El);
+
+            wrap.appendChild(h6El); //맨뒤에 자식요소로 추가
+        })
+
+        function addClickEvent(h6El){
+            h6El.onclick = function(){
+                const wrap = document.getElementById('wrap');
+                const h6El = document.createElement('h6'); //동적으로 <h6></h6>
+                h6El.innerText = "클릭시 h6요소 추가"; //<h6>클릭시 h6요소 추가</h6>
+                addClickEvent(h6El);
+                wrap.appendChild(h6El); //맨뒤에 자식요소로 추가
+            }
+        }
+
+        // function addClickEvent(selector, evHandler){
+        //     let elList = document.querySelectorAll(selector);
+        //     for(let el of elList){
+        //         el.onclick = evHandler;
+        //     }
+        // }
+
+        // const h6El =document.querySelector("#wrap > h6");
+        // h6El.onclick = function(){
+        //     $("#wrap").append("<h6>클릭시 h6요소 추가</h6>");
+        // }
+    </script>
+
+    <hr>
+
+    <h2>시각적인 효과(Effect 메서드)</h2>
+    <p>페이지 내에 애니메이션효과를 주기위해 사용되는 메서드</p>
+
+    <h3>* show, hide, toggle</h3>
+    <p>선택된 요소가 점점 커지면서 보여지고, 점점작아지면서 사라지게 만드는 메소드</p> <br>
+
+    <button id="show_btn">보여주기</button>
+    <button id="hide_btn">숨기기</button>
+    <button id="toggle_btn">토글</button>
+
+    <br><br>
+    <img id="hide_show_img" src="https://imgnews.pstatic.net/image/021/2025/02/17/0002690623_001_20250217112613475.jpg?type=w647" alt="테스트">
+    <script>
+        $("#show_btn").click(function(){
+            $("#hide_show_img").show(500);
+        })
+
+        $("#hide_btn").click(function(){
+            $("#hide_show_img").hide(500);
+        })
+
+        $("#toggle_btn").click(function(){
+            $("#hide_show_img").toggle(500);
+        })
+    </script>
+
+    <hr>
+
+    <h3>fadeIn, fadeOut, fadeToggle</h3>
+    <p>선택된 요소가 점점 투명해지면서 사라지거나 보여지게하는 메서드</p>
+
+    <button id="fadein_btn">보여주기</button>
+    <button id="fadeout_btn">숨기기</button>
+    <button id="fadetoggle_btn">토글</button>
+    
+    <br><br>
+    <img id="fade_img" src="https://imgnews.pstatic.net/image/021/2025/02/17/0002690623_001_20250217112613475.jpg?type=w647" alt="테스트">
+
+    <script>
+        $("#fadein_btn").click(function(){
+            $("#fade_img").fadeIn(500);
+        })
+
+        $("#fadeout_btn").click(function(){
+            $("#fade_img").fadeOut(500);
+        })
+
+        $("#fadetoggle_btn").click(function(){
+            $("#fade_img").fadeToggle(500);
+        })
+    </script>
+
+    <h3>slideDown()과 slideUp()</h3>
+    <div class="qa-box">
+        <div>Q. 반품은 언제되나요?</div>
+        <p>A. 택배사에서 수거처리후 2~10일 이내에 처리가 완료됩니다.</p>
+        
+        <div>Q. 반품은 언제되나요?</div>
+        <p>A. 택배사에서 수거처리후 2~10일 이내에 처리가 완료됩니다.</p>
+
+        <div>Q. 반품은 언제되나요?</div>
+        <p>A. 택배사에서 수거처리후 2~10일 이내에 처리가 완료됩니다.</p>
+
+        <div>Q. 반품은 언제되나요?</div>
+        <p>A. 택배사에서 수거처리후 2~10일 이내에 처리가 완료됩니다.</p>
+
+        <div>Q. 환불가능기간은 어느정도 인가요?</div>
+        <p>A. 환불은 2~5분 이내에만 가능합니다.</p>
+
+        <div>Q. 반품은 언제되나요?</div>
+        <p>A. 택배사에서 수거처리후 2~10일 이내에 처리가 완료됩니다.</p>
+    </div>
+
+    <script>
+        $('.qa-box > div').click(function(){
+            // console.log(this);
+            // console.log($(this).next()); //선택한 요소 뒤에있는 요소
+
+            const $p = $(this).next();
+            if($p.css('display') === "none"){
+                $('.qa-box > p').slideUp();
+                $p.slideDown();
+            }else{
+                $p.slideUp();
+            }
+        })
+    </script>
+
+    
+</body>
+</html>

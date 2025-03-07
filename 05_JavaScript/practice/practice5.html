@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Practice4</h1>
+    <fieldset>
+        <legend>구매 정보</legend>
+        <ul>
+            <li>
+                <span>구매자 : </span>
+                <input id="buyer" type="text" placeholder="구매자의 이름을 입력하세요.">
+            </li>
+            <li>
+                <span>상품명 : </span>
+                <input id="item_name" type="text" placeholder="구매 상품 명을 입력하세요.">
+            </li>
+            <li>
+                <span>가격 : </span>
+                <input id="price" type="number" placeholder="구매 가격을 입력하세요.">
+            </li>
+            <li>
+                <span>구매 수량 : </span>
+                <input id="buy_number" type="text" placeholder="최소 10.">
+            </li>
+            <li>
+                <span>납품 등급 : </span>
+                <input id="delivery" type="range" min="1" max="9" step="2" value="1">
+            </li>
+            <li>
+                <span>기타 사항 : </span>
+                <textarea name="" id="other"></textarea>
+            </li>
+        </ul>
+    </fieldset>
+
+    <br><br>
+    <button id="btn" onclick="test()">입력 값 출력하기</button>
+    <br><br>
+
+    <div id="receipt" style="width: 500px; height: 150px; border: 1px solid black;"></div>
+    
+    <script>
+        function test(){
+            let buyer = document.getElementById('buyer');
+            let item_name = document.getElementById('item_name');
+            let price = document.getElementById('price');
+            let buy_number = document.getElementById('buy_number');
+            let delivery = document.getElementById('delivery');
+            let other = document.getElementById('other');
+            let receipt = document.getElementById('receipt');
+
+            receipt.innerHTML = "구매자 명 : " + buyer.value +"님<br>상품 명 : " + item_name.value + "<br>가격 : " + price.value + "만원<br>구매수량 : " + buy_number.value
+                + "<br>납품 등급 : " + delivery.value + "등급<br>기타 사항 : " + other.value
+        }
+    </script>
+</body>
+</html>

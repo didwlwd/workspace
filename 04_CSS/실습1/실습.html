@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        div,form,input {
+            box-sizing: border-box;
+            
+        }
+
+        /*  화면 전체를 감싸는 div */
+        .wrap {
+            width: 70%;
+            height: 1000px;
+            margin-left: 15%;
+            margin-right: 15%;
+        }
+
+        .wrap>div {
+            width: 100%;
+        }
+
+        #search,#menu{
+            padding: 20px;
+            width: 100%;
+            height: 120px;
+            margin-bottom: 10px;
+            border: 1px solid rgb(212, 212, 212);
+        }
+
+        
+
+        #header,#footer,#aside,#navigator {
+            height: 100%;
+            width: 100%;
+
+        }
+
+        #navigator {
+            height: 5%;
+        }
+
+        #content {
+            height: 55%;
+        }
+
+        #header>div,#content>div,#aside>div {
+            height: 100%;
+            float: left;
+        }
+
+        /*20 65 15*/
+        #header_1 {
+            width: 20%;
+        }
+
+        #header_2 {
+            width: 65%;
+        }
+
+        #header_3 {
+            width: 15%;
+        }
+
+        /*15 65 20*/
+
+        #content_2 {
+            width: 35%;
+        }
+
+
+        #aside_1 {
+            width: 40%;
+        }
+
+        #aside_2 {
+            width: 60%;
+        }
+
+        /* 검색창 */
+
+        #content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #content>form {
+            margin: auto;
+            width: 80%;
+            height: 40px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            /*사방으로 가려고해서 결굮 중앙정렬*/
+        }
+
+        #content>form input {
+            height: 100%;
+            float: left;
+        }
+
+        #content>form input[type="text"] {
+            width: calc(100% - 90px);
+        }
+
+        #content>form button[type="submit"] {
+            width: 90px;
+        }
+
+        #logo {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #logo>a {
+            margin: auto;
+            position: absolute;
+            width: 80%;
+            height: 50px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        #logo>a>img {
+            width: 100%;
+            height: 50px;
+        }
+
+        #content>form>button>img {
+            width: 100%;
+            height: 30px;
+            display: inline-block;
+        }
+
+        /* 메뉴바 */
+        #navigator {
+            width: 100%;
+            height: 80px;
+        }
+
+        #navi {
+            width: 100%;
+            padding: 0;
+        }
+
+        #navi>li {
+            display: inline-block;
+            list-style: none;
+            float: left;
+            width: 20%;
+            text-align: center;
+            height: 50px;
+        }
+
+        #navi a {
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 900;
+            width: 100%;
+            height: 20px;
+            display: block;
+            line-height: 36px;
+        }
+
+        #navi>a>ul li {
+            list-style: none;
+        }
+
+        #navi a:hover {
+            color: rgb(89, 89, 89);
+            scale: 1.08;
+        }
+
+        #navi>li>ul {
+            display: none;
+        }
+
+        #navi>li>a:hover+ul {
+            display: block;
+        }
+
+        #navi>li>ul:hover {
+            display: block;
+        }
+
+        #navi>li>ul a {
+            font-size: 15px;
+        }
+
+        /* 광고 */
+        #advertisement{
+            width: 70%;
+            height: 170px;
+            
+            border: 1px solid rgb(212, 212, 212);
+        }
+        #content_1{
+            height: 100%;
+        }
+        #content_1>a img{
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #advertisement,#login{
+            float: left;
+        }
+
+        /* 로그인폼 */
+        #content_2{
+            width: 100%;
+        }
+        #login {
+            width: 29%;
+            height: 170px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #d4d4d4;
+        }
+        #login-form{
+            width: 100%;
+            height: 100%;
+        }
+        #login-form>*{
+            width: 100%;
+        }
+        #login-form-input{
+            height: 80%;
+        }
+        #login-form-input>*{
+            height: 100%;
+            float: left;
+        }
+        #login-input-id-pwd{
+            width: 65%;
+        }
+        #login-input-id-pwd>input{
+            width: 100%;
+            height: 50%;
+        }
+
+        #login-input-btn{
+           width: 35%;
+        }
+        #login-input-btn>input[type="submit"]{
+            width: 100%;
+            height: 100%;
+        }
+
+        #login-form-etc{
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #login-form-etc>a{
+            font-size: 12px;
+            text-decoration: none;
+            color: black;
+        }
+
+        /* 공지사항 */
+        #notification{
+            width: 75%;
+            height: 170px;
+            border: 1px solid #d4d4d4;
+        }
+
+        /* footer */
+        #footerlo{
+            width: 100%;
+            height: 330px;
+            border: 1px solid #d4d4d4;
+            position: relative;
+        }
+
+        #footer {
+            width: 100%;
+            height: 270px;
+            position: absolute;
+        }
+
+        #footer>div {
+            width: 100%;
+        }
+
+        #footer_1 {
+            height: 55px;
+            background: #f1f4f8;
+            display: flex;
+            align-items: center;
+        }
+
+        #footer_1>div {
+            display: inline-block;
+            width: 100%;
+            max-width: 1130px;
+            margin: 0 auto;
+        }
+
+        #footer_1 a {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        #footer_1 a:hover {
+            color: #FA1800;
+        }
+
+        #footer_2 {
+            height: calc(100% - 55px);
+            background: #fefefee3;
+        }
+
+        #footer_2>p {
+            width: 100%;
+            max-width: 1130px;
+            margin: 0 auto;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        #footer_2>p:nth-child(1) {
+            font-size: 13px;
+            padding-bottom: 10px;
+        }
+
+        #footer_2>p:nth-child(3) {
+            font-size: 11px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div id="search">
+            <div id="header">
+                <div id="header_1">
+                    <div id="logo">
+                        <a href=""><img src="./실습문제이미지/logo.PNG" alt="kh로고"></a>
+                    </div>
+                </div>
+                <div id="header_2">
+                    <div id="content">
+                        <form action="">
+                            <input type="text" placeholder="검색어를 입력하세요.">
+                            <button type="submit"><img src="./실습문제이미지/search.png" alt="찾기"></button>
+                        </form>
+                    </div>
+                </div>
+                <div id="header_3"></div>
+
+            </div>
+        </div>
+
+        <div id="menu">
+            <div id="navigator">
+                <ul id="navi">
+                    <li><a href="">교육과정</a></li>
+                    <li><a href="">교육원소개</a></li>
+                    <li>
+                        <a href="">취업지원센터</a>
+                        <ul>
+                            <li><a href="">HTML</a></li>
+                            <li><a href="">CSS</a></li>
+                            <li><a href="">JavaScript</a></li>
+                            <li><a href="">jQuery</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">신학연계</a>
+                        <ul>
+                            <li><a href="">JDBC</a></li>
+                            <li><a href="">Servlet</a></li>
+                            <li><a href="">JSP</a></li>
+                            <li><a href="">AJAX</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">상담센터</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="advertisement">
+            <div id="content_1">
+                <a href=""><img src="./실습문제이미지/banner.PNG" alt="광고"></a>
+            </div>
+        </div>
+        
+
+        <div id="login">
+            <div id="content">
+                <div id="content_2">
+                    <!--로그인폼 전체를 감싸는 div-->
+                    <div id="login-form">
+                        <!--입력을 받아 요청을 할 수 있는 form태그-->
+                        <form action="" id="login-form-input">
+                            <!--id, pwd들어갈 div-->
+                            <div id="login-input-id-pwd">
+                                <input type="text" placeholder="아이디를 입력해주세요.">
+                                <input type="password" placeholder="비밀번호를 입력해주세요.">
+                            </div>
+                            <!--로그인버튼이 들억갈 div-->
+                            <div id="login-input-btn">
+                                <input type="submit" value="로그인">
+                            </div>
+                        </form>
+                        <!--회원가입, id/pwd찾기가 들어갈 div-->
+                        <div id="login-form-etc">
+                            <a href="">아이디찾기</a> |
+                            <a href="">비밀번호 찾기</a> | 
+                            <a href="">회원가입</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="notification">
+        <div id="content">
+            <div id="content_1"></div>
+            <div id="content_2"></div>
+            
+            
+        </div>
+        <div id="aside">
+            <div id="aside_1">
+                <h3>안녕하세요 여기는 공지사항 제목이 들어오는 자리입니다.</h3>
+                <h3>경제 연애 사회</h3>
+            </div>
+        </div>
+    </div>
+        <div id="footerlo">
+            <div id="footer">
+                <div id="footer_1">
+                    <div>
+                        <a href="">이용약관</a> ｜
+                        <a href="">개인정보처리방침</a> ｜
+                        <a href="">인재 채용 문의</a> ｜
+                        <a href="">훈련비 게시</a> ｜
+                        <a href="">강사 구인</a>
+                    </div>
+                </div>
+                <div id="footer_2">
+                    <p>KH정보교육원 ｜ 사업자등록번호 : 487-86-00763 ｜ 사업자등록번호 : 851-87-00622 ｜ 서울 강남 제2014-01호 ｜ 대표자 : 양진선 ｜ 책임자 : 최홍석 ｜
+                        개인정보관리책임자 : 양진선</p>
+                    <p>
+                        강남지원 1관 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F <br>
+                        강남지원 2관 : 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                        강남지원 3관 : 서울특별시 강남구 테헤란로 130 호산빌딩 5F, 6F <br>
+                        종로점 : 서울특별시 중구 남대문로 120 그레이츠 청계(구 대일빌딩) 2F, 3F <br>
+                        당산점 : 서울특별시 영등포구 선유동2로 57 이레빌딩(구관) 19F, 20F <br>
+                        논현점 : 서울특별시 강남구 논현로 132길 9 마루빌딩 1F, 2F, 3F <br>
+                        부산점 : 부산 부산진구 중앙대로 627 삼비빌딩 2F, 12F <br>
+                    </p>
+                    <p>Copyright © 1998-2025 KH Information Educational Institute All Right Reserved</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>

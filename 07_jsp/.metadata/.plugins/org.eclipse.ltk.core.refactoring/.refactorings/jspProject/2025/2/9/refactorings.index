@@ -1,0 +1,24 @@
+1740448253673	Move file
+1740448266413	Rename resource 'dirver'
+1740448308344	Rename resource 'dirver.properties'
+1740452855820	Delete element
+1740454412942	Delete element
+1740465110277	Move 'lib' to 'WEB-INF'
+1740465193094	Move 'lib' to 'jspProject'
+1740465218261	Move 'lib' to 'WEB-INF'
+1740465278234	Move 'lib' to 'jspProject'
+1740465284923	Move 'lib' to 'WEB-INF'
+1740465313611	Delete element
+1740470544967	Move folder
+1740471903287	Copy file
+1740471906241	Copy file
+1740471922031	Copy compilation unit
+1740536315575	Copy file
+1740618712972	Rename package 'com.kh.borad.controller'
+1740618717557	Rename package 'com.kh.borad.model.dao'
+1740618721944	Rename package 'com.kh.borad.model.vo'
+1740618728069	Rename package 'com.kh.borad.service'
+1740646058326	Rename type 'BoardListController_2'
+1740646623909	Move compilation unit
+1740649722820	Rename type 'BoardAnnouncementController_2'
+1740654776544	Delete element

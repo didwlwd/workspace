@@ -1,0 +1,12 @@
+package com.kh.mybatis.common;
+
+import org.apache.ibatis.session.SqlSession;
+
+public class Template {
+	public static SqlSession getSqlSession() {
+		//mybatis-config.xml 파일 읽어들이기
+		String resource = "org/mybatis/example/mybatis-config.xml";
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+	}
+}

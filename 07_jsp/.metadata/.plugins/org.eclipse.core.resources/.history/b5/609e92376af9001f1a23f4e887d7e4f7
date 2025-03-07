@@ -1,0 +1,12 @@
+package com.kh.board.model.vo;
+
+public class Relpy {
+	REPLY_NO
+	REPLY_CONTENT
+	REF_BNO
+	REPLY_WRITER
+	CREATE_DATE
+	STATUS
+	private int reply_no;
+	private int reply_content;
+}

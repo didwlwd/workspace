@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Properties Test</comment>
+<entry key="insertMember">
+INSERT INTO MEMBER VALUES(SEQ_USERNO.NEXTVAL,?,?,?,?,?,?,?,?,?,SYSDATE)
+</entry>
+
+<entry key="selectList">
+SELECT * FROM MEMBER
+</entry>
+
+<entry key="updateMember">
+UPDATE MEMBER SET EMAIL = ?, PHONE = ?, ADDRESSS = ?, HOBBY =? WHERE USERID = ?
+</entry>
+
+<entry key="deleteMember">
+delete from MEMBER where userid = ?
+</entry>
+
+<entry key="selectByUserName">
+SELECT * FROM MEMBER WHERE USERNAME LIKE '%' || ? || '%'
+</entry>
+
+</properties>

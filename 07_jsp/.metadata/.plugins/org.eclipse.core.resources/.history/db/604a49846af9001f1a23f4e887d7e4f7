@@ -1,0 +1,14 @@
+package com.kh.board.model.vo;
+
+import lombok.Getter;
+
+@Getter
+
+public class Relpy {
+	private int reply_No;
+	private String reply_Content;
+	private int ref_Bno;
+	private int reply_Writer;
+	private String create_Date;
+	private String status;
+}

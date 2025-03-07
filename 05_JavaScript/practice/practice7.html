@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        div{
+            text-align: left;
+        }
+
+        #wrap{
+            width: 600px;
+            height: 400px;
+            background: rgb(238 238 238);
+            text-align: center;
+            padding: 20px 20px;
+        }
+
+        span{
+            font-size: large;
+        }
+        
+        .border{
+            padding: 10px;
+        }
+
+        /* inner */
+        .inner{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .inner input{
+            border: none;
+            border-bottom: 2px dashed black;
+            background: rgb(238 238 238);
+            width: 350px;
+            font-size: large;
+            height: 100%;
+        }
+
+        #email_inner input{
+            border: none;
+            border-bottom: 2px dashed black;
+            background: rgb(238 238 238);
+            width: 167px;
+            font-size: large;
+            height: 100%;
+        }
+
+        #bar{
+            color: gray;
+            display: none;
+            text-align: left;
+            width: 353px;
+        }
+
+        .bar2{
+            color: gray;
+            display: none;
+            text-align: left;
+            width: 353px;
+        }
+
+        #button input{
+            width: 100%;
+            height: 40px;
+            color: black;
+            background: rgb(196 224 178);
+            border: none;
+            font-size: large;
+            margin-top: 100px;
+        }
+            
+        
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="ID" class="border">
+            <div class="inner">
+                <span>아이디</span><input type="text" onblur="checkInput(this, 'id-bar1')">
+            </div>
+            <div class="inner">
+                <div></div>
+                <p id="id-bar1" class="bar2">필수 입력 항목입니다.</p>
+            </div>
+        </div>
+        <div id="password" class="border">
+            <div class="inner">
+                <span>패스워드</span><input id="password_info" type="password" onclick="showHelpbar()" onblur="checkInput(this, 'id-bar2')">
+            </div>
+            <div class="inner">
+                <div></div>
+                <p id="bar">영문자 대/소문자 특수문자, 숫자 포함 8 ~ 32자</p>
+            </div>
+            <div class="inner">
+                <div></div>
+                <p id="id-bar2" class="bar2">필수 입력 항목입니다.</p>
+            </div>
+        </div>
+        <div id="password_check" class="border">
+            <div class="inner">
+                <span>패스워드 확인</span><input type="password" onblur="checkInput(this, 'id-bar3')">
+            </div>
+            <div class="inner">
+                <div></div>
+                <p id="id-bar3" class="bar2">필수 입력 항목입니다.</p>
+            </div>
+        </div>
+        <div id="email" class="border">
+            <div class="inner" id="email_inner">
+                <span>이메일</span>
+                <div>
+                    <input type="text">@<input type="text">
+                </div>
+            </div>
+        </div>
+        <div id="address" class="border">
+            <div class="inner">
+                <span>주소</span><input type="text">
+            </div>
+        </div>
+        <div id="button">
+            <input type="button" value="가입">
+        </div>
+    </div>
+
+    <script>
+        function showHelpbar(){
+            const bar = document.getElementById('bar');
+            bar.style.display = "block";
+        }
+
+        function checkInput(input, msgId){
+            const checkvalue = input.value;
+            const hiddenMsg = document.querySelector("#" + msgId);
+
+            if(checkvalue === ""){
+                hiddenMsg.style.display = "block";
+            }else{
+                hiddenMsg.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

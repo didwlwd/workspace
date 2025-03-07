@@ -1,0 +1,18 @@
+package com.kh.board.model.vo;
+
+public class Notice {
+	private int notice_no;
+	private String notice_title;
+	private String notice_content;
+	private int notice_writer;
+	private int count;
+	private 
+	NOTICE_NO
+	NOTICE_TITLE
+	NOTICE_CONTENT
+	NOTICE_WRITER
+	COUNT
+	CREATE_DATE
+	STATUS
+	
+}

@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.outer{
+		background: black;
+		color: black;
+		width: 1000px;
+		margin: auto;
+		margin-top: 50px;
+		padding: 10px 0px 50px ;
+	}
+	.outer table{
+		margin: auto;
+	}
+
+	#update-pwd-modal{
+		margin: auto;
+	}
+
+	#update-pwd-modal .modal-body form{
+		display: flex;
+		align-items: flex-end;
+	}
+
+	#delete-user-modal{
+		margin: auto;
+	}
+	
+	#delete-pwd-btn{
+		width:100%;
+	}
+	
+</style>
+
+</head>
+<body>
+<%@include file=../common/menubar.jsp %>
+
+</body>
+</html>
