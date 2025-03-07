@@ -1,10 +1,13 @@
 package com.kh.mybatis.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.mybatis.board.model.vo.Board;
 import com.kh.mybatis.board.service.BoardService;
 import com.kh.mybatis.board.service.BoardServiceImpl;
+import com.kh.mybatis.common.PageInfo;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -43,6 +46,19 @@ public class BoardSearchController extends HttpServlet {
 		BoardService bService = new BoardServiceImpl();
 		
 		int listCount = bService.selectSearchCount(map);
+		PageInfo pi = new PageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Board> list = bService.selectSearchList(map, pi);
+		
+		request.getSession().setAttribute("condition", condition);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
+		
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		
+		request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
 	}
 
 	/**

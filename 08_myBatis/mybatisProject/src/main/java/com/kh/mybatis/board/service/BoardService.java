@@ -10,4 +10,5 @@ public interface BoardService {
 	public int selectListCount();
 	public ArrayList<Board> selectList(PageInfo p);
 	public int selectSearchCount(HashMap<String, String> map);
+	public ArrayList<Board> selectSearchList(HashMap<String, String> map,PageInfo pi);
 }

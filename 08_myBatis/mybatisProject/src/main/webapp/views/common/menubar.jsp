@@ -18,6 +18,12 @@
         color: white;
         height: 50px;
     }
+    
+   	.nav-area a{
+        text-decoration: none;
+        color: white;
+    }
+    
     .menu{
         display: table-cell;
         width: 250px;
@@ -77,7 +83,7 @@
 			                </tr>
 			                <tr>
 			                    <td><a href="myPage.me">마이페이지</a></td>
-			                    <td><a href="">로그아웃</a></td>
+			                    <td><a href="logout.me">로그아웃</a></td>
 			                </tr>
 			            </table>
 			        </div>
@@ -89,7 +95,7 @@
     <div class="nav-area" align="center">
         <div class="menu">HOME</div>
         <div class="menu">공지사항</div>
-        <div class="menu"><a href="lsit.bo?cpage=1">게시판</a></div>
+        <div class="menu"><a href="list.bo?cpage=1">게시판</a></div>
         <div class="menu">ETC</div>
     </div>
 </body>

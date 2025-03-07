@@ -40,4 +40,12 @@ public class BoardServiceImpl implements BoardService{
 		
 		return listCount;
 	}
+	@Override
+	public ArrayList<Board> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		SqlSession sqlSession = Template.getSqlSession();
+		ArrayList<Board> list = bDao.selectSearchList(sqlSession, map, pi);
+		
+		sqlSession.close();
+		return list;
+	}
 }

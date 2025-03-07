@@ -4853,3 +4853,6 @@ Binding(ALT+SHIFT+D R,
 
 !ENTRY org.eclipse.oomph.setup.ui 1 0 2025-03-07 09:04:01.922
 !MESSAGE Setup tasks were performed during startup updating 8 preferences. See 'C:\Users\user1\eclipse\jee-2024-09\eclipse\configuration\org.eclipse.oomph.setup\setup.log' for details
+
+!ENTRY org.eclipse.wst.server.core 4 0 2025-03-07 14:50:24.460
+!MESSAGE Server Tomcat v10.1 Server at localhost failed to start.
