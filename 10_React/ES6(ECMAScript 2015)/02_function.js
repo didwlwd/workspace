@@ -57,3 +57,40 @@ function greet2(name, hobby = "독서"){
 
 greet2("최민수");
 //앞쪽 배치시 greet2(undefined, "최민수");
+
+// 기본값에 다른 매개변수를 사용할 수 있음
+function calcul(price, tax = price * 0.1){
+    console.log("금액 : " , price, "세금 : ", tax);
+}
+
+calcul(10000, 2000);
+calcul(10000);
+
+// 2. 화살표 함수
+
+//기본 화살표 함수
+const add = (a,b) => {
+    return a + b;
+}
+
+console.log("5 + 10 =", add(5,10));
+
+//함수의 내용에 return값만 있다면 return키워드와 {}를 생략가능
+const minus = (a, b) => a - b;
+console.log("10 - 5 =", minus(10,5));
+
+//전달할 매개변수가 한개라면 ()도 생략 가능
+const square = x => x * x;
+
+console.log("10의 제곱 : ", square(10));
+
+// 3. 콜백 함수
+//특정 함수를 실행할 때 실행하는 사람이 특정 기능을 완료한 후에 실행하고싶은 코드를 정의하는 용도
+function run(callback){
+    //run함수의 기능 코드 ---------
+    callback();
+}
+
+run(function(){
+    console.log("run을 끝냈다.");
+})
