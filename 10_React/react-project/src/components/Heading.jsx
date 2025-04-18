@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Heading = (type, children) => {
-    if(props.type === "h2"){
+const Heading = ({type, children}) => {
+    if(type === "h2"){
         return <h2>안녕하세요. Props입니다.</h2>
     }
 
