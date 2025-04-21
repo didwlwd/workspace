@@ -34,7 +34,7 @@ const UseStateTest = () => {
     }
 
     const onClickMinus = () => {
-        setNum(prevNum => prevNum - 1);
+        // setNum(prevNum => prevNum - 1);
         setNum((prevNum) => {
             console.log("이전 상태 출력 : ", prevNum)
             return prevNum - 1; 
