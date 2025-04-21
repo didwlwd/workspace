@@ -14,6 +14,14 @@ import React,{useState} from 'react'
     setNum(prevNum => prevNum - 1); 에서는 클로저가 해당 데이터를 저장해서 사용할 수 있게 해준다. 
 */
 
+// function setNum = (value) => {
+//     if(typeof value === 'function'){
+//         prevNum = value(prevNum);
+//     } else {
+//         prevNum = value;
+//     }
+// }
+
 const UseStateTest = () => {
     //const num = 0;
     const [num, setNum] = useState(0);
@@ -27,7 +35,11 @@ const UseStateTest = () => {
 
     const onClickMinus = () => {
         setNum(prevNum => prevNum - 1);
-        
+        setNum((prevNum) => {
+            console.log("이전 상태 출력 : ", prevNum)
+            return prevNum - 1; 
+        })
+        console.log("상태 업데이트 요청");
 
         //상태가 이전 상태에 의존하는 경우에는
         //항상 상태 업데이트 함수에 콜백을 사용하는 방식(prevNum => prevNum - 1)을 사용해야 한다.
