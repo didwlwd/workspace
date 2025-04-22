@@ -2,9 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import UseStateTest from './components/UseStateTest'
-import SignUp from './components/SignUp'
-import LandingPage from './components/LandingPage'
+import UseStateTest from './components/useState/UseStateTest'
+import SignUp from './components/useState/SignUp'
+import LandingPage from './components/useState/LandingPage'
+import UseRefTest from './components/useRef/UseRefTest'
+import UseRefScroll from './components/useRef/useRefScroll'
 
 function App() {
 
@@ -12,7 +14,9 @@ function App() {
     <>
       {/* <UseStateTest /> */}
       {/* <SignUp /> */}
-      <LandingPage />
+      {/* <LandingPage /> */}
+      {/* <UseRefTest /> */}
+      <UseRefScroll />
     </>
   )
 }
