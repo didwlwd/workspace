@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
+import TodoItem from './TodoItem'
 
 const Container = styled.div`
     width: 100%;
@@ -53,6 +54,39 @@ const TodoListContainer = styled.ul`
 
 const TodoList = () => {
     const [newTodo, setNewTodo] = useState('');
+    const [todos, setTodos] = useState([]);
+
+    const addTodo = () => {
+        if(newTodo.trim() === '') return;
+
+        const todo = {
+            id : Date.now(),
+            text : newTodo,
+            completed : false,
+        }
+
+        setTodos([...todos, todo]);
+        setNewTodo('');
+    }
+
+    const handleKeyDown = (ev) =>{
+        if(ev.key === "Enter"){
+            addTodo();
+        }
+    }
+
+    
+    const onToggle = (id) =>{
+        //배열의 갯수 -> 유지
+        //상태만 변경 -> 특정조건으로
+        setTodos(todos.map(todo => 
+            todo.id === id ? {...todo, completed: !todo.completed} : todo
+        ));
+    }
+
+    const onDelete = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    }
 
   return (
     <Container>
@@ -62,11 +96,20 @@ const TodoList = () => {
                 type="text" 
                 value={newTodo}
                 onChange={(e) => setNewTodo(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder='할 일을 입력하세요.'
             />
-            <AddButton>추가</AddButton>
+            <AddButton onClick={addTodo}>추가</AddButton>
         </InputContainer>
         <TodoListContainer>
-            <li>밥먹기 <button>x</button></li>
+            {todos.map(todo => 
+                <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    onToggle={onToggle}
+                    onDelete={onDelete}
+                />
+            )}
         </TodoListContainer>
     </Container>
   )
