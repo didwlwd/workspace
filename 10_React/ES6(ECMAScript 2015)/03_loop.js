@@ -102,6 +102,8 @@ const scoreList = [
     {name : "최지삼", score : 100}
 ]
 
+console.log(scoreList);
+
 const scoreMap = scoreList.reduce((acc, cur) => {
     acc[cur.name] = cur.score;
     return acc;

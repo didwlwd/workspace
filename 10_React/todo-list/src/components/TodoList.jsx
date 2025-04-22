@@ -75,12 +75,11 @@ const TodoList = () => {
         }
     }
 
-    
     const onToggle = (id) =>{
         //배열의 갯수 -> 유지
         //상태만 변경 -> 특정조건으로
         setTodos(todos.map(todo => 
-            todo.id === id ? {...todo, completed: !todo.completed} : todo
+            todo.id === id ? {...todo, completed : !todo.completed} : todo
         ));
     }
 
