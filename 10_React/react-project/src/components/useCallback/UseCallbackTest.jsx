@@ -6,8 +6,8 @@ const UseCallbackTest = () => {
 
     const theme = {
         backgroundColor : dark ? "#333" : "#fff",
-        color : dark ? "#333" : "#fff",
-        
+        color : dark ? "#ffff" : "#333",
+        padding : "12px"
     }
     
     const onChangeNum = (ev) => {
@@ -15,7 +15,7 @@ const UseCallbackTest = () => {
     };
 
   return (
-    <div>
+    <div style={theme}>
         <h2>useCallback 테스트</h2>
         <input
             type='number'
