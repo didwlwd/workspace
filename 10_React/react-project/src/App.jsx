@@ -10,6 +10,8 @@ import UseRefTest from './components/useRef/UseRefTest'
 import UseRefScroll from './components/useRef/UseRefScroll'
 import UseMemoTest from './components/useMemo/UseMemoTest'
 import UseCallbackTest from './components/useCallback/UseCallbackTest'
+import UseEffectTest from './components/useEffect/UseEffectTest'
+import EffectView from './components/useEffect/EffectView'
 
 function App() {
 
@@ -22,6 +24,7 @@ function App() {
       {/* <UseRefScroll /> */}
       <UseMemoTest />
       {/* <UseCallbackTest /> */}
+      {/* <EffectView /> */}
     </>
   )
 }
