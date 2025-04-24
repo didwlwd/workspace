@@ -2,36 +2,29 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
-import UseStateTest from './components/useState/UseStateTest'
-import SignUp from './components/useState/SignUp'
-import LandingPage from './components/useState/LandingPage'
-import UseRefTest from './components/useRef/UseRefTest'
-import UseRefScroll from './components/useRef/UseRefScroll'
-import UseMemoTest from './components/useMemo/UseMemoTest'
-import UseCallbackTest from './components/useCallback/UseCallbackTest'
-import UseEffectTest from './components/useEffect/UseEffectTest'
-import EffectView from './components/useEffect/EffectView'
-import BlackOrWhite from './components/useContext/BlackOrWhite'
-import MyForm from './components/customHook/MyForm'
-import ToggleBox from './components/customHook/ToggleBox'
+import { BrowserRouter , Route, Routes, Link} from 'react-router-dom'
+import Profile from './pages/Profile'
+import NotFound from './pages/NotFound'
+import About from './pages/About'
+import Home from './pages/Home'
 
 function App() {
 
   return (
-    <>
-      {/* <UseStateTest /> */}
-      {/* <SignUp /> */}
-      {/* <LandingPage /> */}
-      {/* <UseRefTest /> */}
-      {/* <UseRefScroll /> */}
-      {/* <UseMemoTest /> */}
-      {/* <UseCallbackTest /> */}
-      {/* <EffectView /> */}
-      {/* <BlackOrWhite /> */}
-      {/* <MyForm /> */}
-      <ToggleBox />
-    </>
+    <BrowserRouter>
+      <nav style={{marginBottom : 20}}>
+        {/* Link : a태그와 동일한 역할을 하지만 react-router-dom을 활용해 spa방식으로 자연스럽게 화면전환 */}
+        <Link to="/" style={{marginRight : 12}}>홈</Link>
+        <Link to="/about" style={{marginRight : 12}}>소개</Link>
+        <Link to="/profile/최지원">프로필</Link>
+      </nav>
+      <Routes>
+        <Route path='/' element={<Home/ >} />
+        <Route path='/about' element={<About/ >} />
+        <Route path='/profile/:username' element={<Profile/ >} />
+        <Route path='*' element={<NotFound/ >} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
