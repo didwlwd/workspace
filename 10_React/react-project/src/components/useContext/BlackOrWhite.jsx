@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import MainContent from './MainContent';
+import ThemeContext from './ThemeContext';
 
 const BlackOrWhite = () => {
     const [theme, setTheme] = useState("white");

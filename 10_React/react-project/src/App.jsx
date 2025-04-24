@@ -15,6 +15,8 @@ import EffectView from './components/useEffect/EffectView'
 import BlackOrWhite from './components/useContext/BlackOrWhite'
 import MyForm from './components/customHook/MyForm'
 import ToggleBox from './components/customHook/ToggleBox'
+import { UserProvider } from './components/useContext/UserContext'
+import Header from './components/useContext/Header'
 
 function App() {
 
@@ -30,7 +32,10 @@ function App() {
       {/* <EffectView /> */}
       {/* <BlackOrWhite /> */}
       {/* <MyForm /> */}
-      <ToggleBox />
+      {/* <ToggleBox /> */}
+      <UserProvider>
+        <Header />
+      </UserProvider>
     </>
   )
 }
