@@ -1,0 +1,7 @@
+{
+  "todos": [
+    { "id": 1, "text": "밥먹기", "completed": false },
+    { "id": 2, "text": "밥먹기", "completed": true },
+    { "id": 3, "text": "밥먹기", "completed": false }
+  ]
+}
