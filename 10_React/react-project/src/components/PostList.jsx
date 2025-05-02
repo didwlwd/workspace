@@ -1,52 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import { ButtonContainer, Container, Content, Error, Loading, LoadingOverlay, PostCard, Title } from './styled/PostList.styled'
-import usePostStore from '../store/PostStore';
-import { Button } from './styled/common';
-import styled from 'styled-components'
+import React, { useEffect, useState } from "react";
+import {
+  ButtonContainer,
+  Container,
+  Content,
+  Error,
+  Loading,
+  LoadingOverlay,
+  PostCard,
+  Title,
+} from "./styled/PostList.styled";
+import usePostStore from "../store/PostStore";
+import { Button } from "./styled/common";
+import styled from "styled-components";
 
 const ControlButton = styled(Button)`
-    margin: 0;
-`
+  margin: 0;
+`;
 
 const PostList = () => {
-    const { posts, loading, error, getPosts, deletePost } = usePostStore();
-    const [deletePostId, setDeltePostId] = useState(null);
+  const { posts, loading, error, getPosts, deletePost } = usePostStore();
+  const [deletePostId, setDeltePostId] = useState(null);
 
-    useEffect(() => {
-        getPosts();
-    }, [getPosts])
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
 
-    if(loading && posts.length === 0)return <Loading>로딩 중...</Loading>
-    if(error) return <Error>에러발생 : {error}</Error>
+  if (loading && posts.length === 0) return <Loading>로딩 중...</Loading>;
+  if (error) return <Error>에러발생 : {error}</Error>;
 
-    const handleDelete = async (id) =>{
-        setDeltePostId(id)
-        await deletePost(id);
-        setDeltePostId(null);
-    }
+  const handleDelete = async (id) => {
+    setDeltePostId(id);
+    await deletePost(id);
+    setDeltePostId(null);
+  };
 
   return (
     <Container>
-        {posts.map((post) => (
-            <PostCard key={post.id}>
-                <Title>{post.title}</Title>
-                <Content>{post.body}</Content>
-                <ButtonContainer>
-                    <ControlButton>수정</ControlButton>
-                    <ControlButton
-                        disabled={loading}
-                        onClick={() => handleDelete(post.id)}
-                    >{deletePostId === post.id ? "삭제중..." : "삭제"}</ControlButton>
-                </ButtonContainer>
-                {deletePostId === post.id && (
-                    <LoadingOverlay>
-                        <div>삭제중...</div>
-                    </LoadingOverlay>
-                )}
-            </PostCard>
-        ))}
+      {posts.map((post) => (
+        <PostCard key={post.id}>
+          <Title>{post.title}</Title>
+          <Content>{post.body}</Content>
+          <ButtonContainer>
+            <ControlButton>수정</ControlButton>
+            <ControlButton
+              disabled={loading}
+              onClick={() => handleDelete(post.id)}
+            >
+              {deletePostId === post.id ? "삭제중..." : "삭제"}
+            </ControlButton>
+          </ButtonContainer>
+          {deletePostId === post.id && (
+            <LoadingOverlay>
+              <div>삭제중...</div>
+            </LoadingOverlay>
+          )}
+        </PostCard>
+      ))}
     </Container>
-  )
-}
+  );
+};
 
-export default PostList
+export default PostList;
