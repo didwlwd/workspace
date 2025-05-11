@@ -14,9 +14,13 @@ public class BoardResponse {
     public static class SimpleDTO {
 
         private Long board_id;
-        private String member_email;
         private String title;
+        private String member_email;
         private LocalDateTime created_at;
+
+        private String contents;
+        private String file_name;
+        private String originFile;
 
         public static SimpleDTO formEntity(Board board) {
             return SimpleDTO.builder()
@@ -26,6 +30,17 @@ public class BoardResponse {
                     .created_at(board.getCreatedAt())
                     .build();
         }
+
+        public static SimpleDTO form(Board board) {
+            return SimpleDTO.builder()
+                    .title(board.getTitle())
+                    .member_email(board.getMemberEmail())
+                    .contents(board.getContents())
+                    .file_name(board.getFileName())
+                    .originFile(board.getFileName())
+                    .build();
+        }
+
 
     }
 }

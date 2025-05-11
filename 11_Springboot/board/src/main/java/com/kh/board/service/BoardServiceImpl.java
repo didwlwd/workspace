@@ -21,10 +21,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int insertBoard(Board board, String file) {
-        int boardCount = boardMapper.boardCount();
-        int count = boardCount + 1;
-        Long boardId = Long.valueOf(count);
-        return boardMapper.insertBoard(BoardRequset.CreateDTO.insert(board,boardId),boardId,file);
+    public int boardCount() {
+        return boardMapper.boardCount();
+    }
+
+    @Override
+    public int insertBoard(BoardRequset.CreateDTO dto) {
+        return boardMapper.insertBoard(dto);
+    }
+
+    @Override
+    public Board loadBoard(int boardId) {
+        return boardMapper.loadBoard(boardId);
     }
 }

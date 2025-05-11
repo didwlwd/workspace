@@ -24,19 +24,24 @@
             TITLE,
             MEMBER_EMAIL,
             CONTENTS,
-            FILE_NAME,
-            CREATED_AT,
-            UPDATED_AT
+            FILE_NAME
         )
-        VALUE(
-            #{boardId},
-            #{dto.title},
-            #{dto.contents},
-            #{dto.user_id},
-            #{file},
-            SYSDATE,
-            SYSDATE
+        VALUES(
+            #{board_id},
+            #{title},
+            #{user_id},
+            #{contents},
+            #{file_name}
         )
     </insert>
+
+    <select id="loadBoard" resultType="Board">
+        SELECT TITLE,
+                MEMBER_EMAIL memberEmail,
+                CONTENTS,
+                FILE_NAME fileName
+        FROM BOARD
+        WHERE BOARD_ID = #{boardId}
+    </select>
 
 </mapper>

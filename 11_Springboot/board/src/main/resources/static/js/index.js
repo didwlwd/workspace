@@ -8,6 +8,7 @@ function initBoard(){
     console.log(boardId)
 
     getBoard(boardId, function(board){
+        console.log(board);
         document.querySelector('#title').value = board.title;
         document.querySelector('#memberEmail').value = board.member_email;
         document.querySelector('#contents').value = board.contents;
@@ -27,7 +28,7 @@ function formatDate(date) {
 
 function getBoard(boardId, callback){
     $.ajax({
-        url: "http://localhost:8888/board/" + boardId,
+        url: "http://localhost:8888/board/detail/" + boardId,
         type: "get",
         contentType: "application/json",
         success: function(response) {
@@ -83,7 +84,6 @@ function insertBoard(){
     formData.append("contents", document.querySelector('#contents').value)
     formData.append("upfile", document.querySelector('#upfile').files[0])
 
-    console.log(formData)
     // AJAX 요청 보내기
     $.ajax({
         url: "http://localhost:8888/board", // 서버의 글쓰기 API URL

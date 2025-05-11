@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Board {
 
-    private  Long boardId;
+    private Long boardId;
     private String title;
     private String contents;
     private String fileName;
@@ -20,4 +20,7 @@ public class Board {
 
     //변경이 필요한 부분만 setter를 작성해준다.
     public void changeFileName(String fileName) { this.fileName = fileName; }
+
+    //유저아이디를 받아서 멤버이메일에 저장
+    public void changeMemberEmail(String userId) { this.memberEmail = userId; }
 }

@@ -1,5 +1,6 @@
 package com.kh.board.service;
 
+import com.kh.board.controller.dto.request.BoardRequset;
 import com.kh.board.entity.Board;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,5 +8,8 @@ import java.util.List;
 
 public interface BoardService {
     List<Board> findAll();
-    int insertBoard(Board board, String file);
+    int boardCount();
+    int insertBoard(BoardRequset.CreateDTO dto);
+
+    Board loadBoard(int boardId);
 }

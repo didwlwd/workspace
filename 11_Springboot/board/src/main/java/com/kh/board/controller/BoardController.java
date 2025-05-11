@@ -37,15 +37,33 @@ public class BoardController {
 
     //게시글을 등록하는 api
     @PostMapping
-    public ResponseEntity<?> insertBoard(Board board, MultipartFile upfile) {
-        String file = upfile.getOriginalFilename();
+    public ResponseEntity<?> insertBoard(Board board, String userId ,MultipartFile upfile) {
+        int boardCount = boardService.boardCount();
+        int count = boardCount + 1;
+        Long boardId = Long.valueOf(count);
 
-        int result = boardService.insertBoard(board,file);
+        board.changeFileName(upfile.getOriginalFilename());
+        board.changeMemberEmail(userId);
+
+        String file = upfile.getOriginalFilename();
+        BoardRequset.CreateDTO dto = BoardRequset.CreateDTO.insert(board, boardId,file);
+
+        int result = boardService.insertBoard(dto);
 
         if (result > 0) {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    //게시글 상세보기 페이지
+    @GetMapping("/detail/{boardId}")
+    public ResponseEntity<BoardResponse.SimpleDTO> getBoard(@PathVariable int boardId) {
+        Board board = boardService.loadBoard(boardId);
+
+        BoardResponse.SimpleDTO dto = BoardResponse.SimpleDTO.form(board);
+
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }
