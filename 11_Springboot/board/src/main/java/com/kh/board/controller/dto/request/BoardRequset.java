@@ -10,22 +10,41 @@ public class BoardRequset {
 
     @Getter
     @Setter
-    @Builder
     public static class CreateDTO{
-        private Long board_id;
+
         private String title;
         private String contents;
         private String user_id;
         private String file_name;
 
-        public static CreateDTO insert(Board board, Long board_id, String file) {
-            return CreateDTO.builder()
-                    .board_id(board_id)
-                    .title(board.getTitle())
-                    .contents(board.getContents())
-                    .user_id(board.getMemberEmail())
-                    .file_name(file)
+        public Board toEntity(){
+            return Board.builder()
+                    .memberEmail(user_id)
+                    .title(title)
+                    .contents(contents)
+                    .fileName(file_name)
                     .build();
         }
+
+    }
+
+    @Getter
+    @Setter
+    public static class UpdateDTO{
+
+        private String title;
+        private String contents;
+        private String origin_file;
+        private Long board_id;
+
+        public Board toEntity(){
+            return Board.builder()
+                    .title(title)
+                    .contents(contents)
+                    .fileName(origin_file)
+                    .boardId(board_id)
+                    .build();
+        }
+
     }
 }

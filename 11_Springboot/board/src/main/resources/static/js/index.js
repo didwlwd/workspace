@@ -2,13 +2,15 @@ function init(){
     getBoardList(drawBoardList);
 }
 
-function initBoard(){
+function getUrlPrams(id){
     const urlParams = new URLSearchParams(window.location.search);
-    const boardId = urlParams.get('board_id');
-    console.log(boardId)
+    return urlParams.get(id);
+}
+
+function initBoard(){
+    const boardId = getUrlPrams('board_id');
 
     getBoard(boardId, function(board){
-        console.log(board);
         document.querySelector('#title').value = board.title;
         document.querySelector('#memberEmail').value = board.member_email;
         document.querySelector('#contents').value = board.contents;
@@ -28,7 +30,7 @@ function formatDate(date) {
 
 function getBoard(boardId, callback){
     $.ajax({
-        url: "http://localhost:8888/board/detail/" + boardId,
+        url: "http://localhost:8888/board/" + boardId,
         type: "get",
         contentType: "application/json",
         success: function(response) {
@@ -80,9 +82,10 @@ function insertBoard(){
 
     const formData = new FormData();
     formData.append("title", document.querySelector('#title').value)
-    formData.append("userId", document.querySelector('#userId').value)
+    formData.append("user_id", document.querySelector('#userId').value)
     formData.append("contents", document.querySelector('#contents').value)
     formData.append("upfile", document.querySelector('#upfile').files[0])
+
 
     // AJAX 요청 보내기
     $.ajax({
@@ -106,16 +109,14 @@ function updateBoard(){
     if(!confirm("글을 정말 수정하시겠습니까?"))
         return;
 
-    const path = window.location.pathname;
-    const pathParts = path.split('/');
-    const boardId = pathParts[pathParts.length - 1];
+    const boardId = getUrlPrams('board_id');
 
     const formData = new FormData();
     formData.append("title", document.querySelector('#title').value)
     formData.append("contents", document.querySelector('#contents').value)
     formData.append("upfile", document.querySelector('#upfile').files[0])
-    formData.append("originFile", document.querySelector('#originFile').value)
-    formData.append("boardId", boardId);
+    formData.append("origin_file", document.querySelector('#originFile').value)
+    formData.append("board_id", boardId);
 
     $.ajax({
         url: "http://localhost:8888/board",
@@ -126,7 +127,7 @@ function updateBoard(){
         success: function(response) {
             console.log(response)
             alert("글이 성공적으로 수정되었습니다.");
-            window.location.href = "/boardDetail/" + boardId;
+            window.location.href = "/boardDetail.html?board_id=" + boardId;
         },
         error: function(error) {
             alert("글 등록에 실패했습니다.");
@@ -139,13 +140,10 @@ function deleteBoard(){
     if(!confirm("글을 정말 삭제하시겠습니까?"))
         return;
 
-    const path = window.location.pathname;
-    const pathParts = path.split('/');
-    const boardId = pathParts[pathParts.length - 1];
-
+    const boardId = getUrlPrams('board_id');
 
     $.ajax({
-        url: "http://localhost:8888/api/board/" + boardId,
+        url: "http://localhost:8888/board/" + boardId,
         type: "DELETE",
         success: function(response) {
             alert("글이 성공적으로 삭제되었습니다.");

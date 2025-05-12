@@ -9,7 +9,10 @@ import java.util.List;
 public interface BoardService {
     List<Board> findAll();
     int boardCount();
-    int insertBoard(BoardRequset.CreateDTO dto);
+    int insertBoard(Board board);
 
-    Board loadBoard(int boardId);
+    Board loadBoard(Long boardId);
+
+    int delete(Long boardId);
+    int update(Board board);
 }

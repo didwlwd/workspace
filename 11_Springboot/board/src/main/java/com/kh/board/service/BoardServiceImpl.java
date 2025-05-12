@@ -26,12 +26,22 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int insertBoard(BoardRequset.CreateDTO dto) {
-        return boardMapper.insertBoard(dto);
+    public int insertBoard(Board board) {
+        return boardMapper.insertBoard(board);
     }
 
     @Override
-    public Board loadBoard(int boardId) {
+    public Board loadBoard(Long boardId) {
         return boardMapper.loadBoard(boardId);
+    }
+
+    @Override
+    public int delete(Long boardId) {
+        return boardMapper.delete(boardId);
+    }
+
+    @Override
+    public int update(Board board) {
+        return boardMapper.update(board);
     }
 }

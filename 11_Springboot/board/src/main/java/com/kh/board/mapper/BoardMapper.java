@@ -11,6 +11,8 @@ import java.util.List;
 public interface BoardMapper {
  List<Board> findAll();
  int boardCount();
- int insertBoard(BoardRequset.CreateDTO dto);
- Board loadBoard(int boardId);
+ int insertBoard(Board board);
+ Board loadBoard(Long boardId);
+ int delete(@Param("boardId")Long boardId);
+ int update(Board board);
 }
