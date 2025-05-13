@@ -22,7 +22,7 @@ public class BoardResponse {
         public static SimpleDTO formEntity(Board board) {
             return SimpleDTO.builder()
                     .board_id(board.getBoardId())
-                    .member_email(board.getMemberEmail())
+                    .member_email(board.getMember().getEmail())
                     .title(board.getTitle())
                     .created_at(board.getCreatedAt())
                     .build();
@@ -45,7 +45,7 @@ public class BoardResponse {
         public static DetailDTO formEntity(Board board) {
             return DetailDTO.builder()
                     .title(board.getTitle())
-                    .member_email(board.getMemberEmail())
+                    .member_email(board.getMember().getEmail())
                     .contents(board.getContents())
                     .file_name(board.getFileName())
                     .originFile(board.getFileName())
