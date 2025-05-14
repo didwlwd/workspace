@@ -103,7 +103,7 @@ function insertBoard(){
             console.error("board insert failed");
         }
     });
-};
+}
 
 function updateBoard(){
     if(!confirm("글을 정말 수정하시겠습니까?"))
