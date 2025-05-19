@@ -1,40 +1,55 @@
 package com.kh.jpa.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
+import com.kh.jpa.dto.MemberDto;
+import com.kh.jpa.enums.CommonEnums;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "MEMBER")
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //JPA 스펙상 필수 + 외부 생성 방지
+@AllArgsConstructor
+@Builder
+@DynamicInsert// insert시에 null이 아닌 필드만 쿼리에 포함, default값 활용
+@DynamicUpdate// 변경된 필드만 update문에 포함
 public class Member {
+
     @Id
-    @Column(name = "user_id", unique = true, nullable = false, length = 30)
+    @Column(name = "USER_ID", length = 30)
     private String userId;
 
-    @Column(name = "user_pwd", nullable = false, length = 100)
+    @Column(name = "USER_PWD", length = 100, nullable = false)
     private String userPwd;
 
-    @Column(name = "user_name", nullable = false, length = 100)
+    @Column(name = "USER_NAME", length = 15, nullable = false)
     private String userName;
 
     @Column(length = 254)
     private String email;
 
-    @Column(length = 1)
-    private String gender;
-
-    private int age;
+    @Column(name = "GENDER", length = 1)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(length = 13)
     private String phone;
@@ -42,31 +57,56 @@ public class Member {
     @Column(length = 100)
     private String address;
 
-    @CreationTimestamp
-    @Column(name = "enroll_date", updatable = false)
+    @Column(name = "ENROLL_DATE")
     private LocalDateTime enrollDate;
 
-    @UpdateTimestamp
-    @Column(name = "modify_date")
+    @Column(name = "MODIFY_DATE")
     private LocalDateTime modifyDate;
 
-    @ColumnDefault("'Y'")
     @Column(length = 1, nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CommonEnums.Status status;
 
-    //한 사람은 하나의 프로필을 가질 수 있다.
-    @OneToOne(mappedBy = "profileMember", cascade = CascadeType.ALL)
-    private Profile profiles = new Profile();
+    private Integer age;
 
-    //한 사람은 여러 공지를 작성할 수 있다.
-    @OneToMany(mappedBy = "noticeMember")
-    private List<Notice> notices = new ArrayList<>();
+    //1 : N 연관관계 주인 = Board
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    List<Board> boards = new ArrayList<>();
 
-    //한 사람은 여러 게시판을 작성할 수 있다.
-    @OneToMany(mappedBy = "boardMember")
-    private List<Board> boards = new ArrayList<>();
+    //1 : N 연관관계 주인 = Notice
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    List<Notice> notices = new ArrayList<>();
 
-    //한 사람은 여러 댓글을 작성할 수 있다.
-    @OneToMany(mappedBy = "replyMember")
-    private List<Reply> replies = new ArrayList<>();
+    //회원 : 프로필 (1 : 1)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "PROFILE_ID", unique = true)
+    private Profile profile;
+
+
+    public enum Gender {
+        M, F
+    }
+
+    public void updateMemberInfo(String userName, String email, Gender gender, String phone, String address, Integer age) {
+        this.userName = userName;
+        this.email = email;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.age = age;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.enrollDate = LocalDateTime.now();
+        this.modifyDate = LocalDateTime.now();
+        if(this.status == null) {
+            this.status = CommonEnums.Status.Y;
+        }
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.modifyDate = LocalDateTime.now();
+    }
 }

@@ -1,59 +1,84 @@
 package com.kh.jpa.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-
+import com.kh.jpa.enums.CommonEnums;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "BOARD")
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //JPA 스펙상 필수 + 외부 생성 방지
+@AllArgsConstructor
+@Builder
 public class Board {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_no")
-    private int boardNo;
+    @Column(name = "BOARD_NO")
+    private Long boardNo;
 
-    @Column(name = "board_title", length = 100, nullable = false)
+    @Column(name = "BOARD_TITLE", length = 30, nullable = false)
     private String boardTitle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_writer", nullable = false)
-    private Member boardMember;
+    //@Lob : 대용량 데이터 매핑
+    @Column(name = "BOARD_CONTENT", nullable = false)
+    @Lob
+    private String noticeContent;
 
-    @Column(name = "board_content",nullable = false)
-    private String boardContent;
-
-    @Column(name = "origin_name", length = 100)
+    @Column(name = "ORIGIN_NAME", length = 100)
     private String originName;
 
-    @Column(name = "change_name", length = 100)
+    @Column(name = "CHANGE_NAME", length = 100)
     private String changeName;
 
-    @ColumnDefault("'0'")
-    private int count;
-
-    @CreationTimestamp
-    @Column(name = "create_date")
+    @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;
 
-    @ColumnDefault("'Y'")
-    @Column(length = 1,nullable = false)
-    private String status;
+    @Column(length = 1, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private CommonEnums.Status status;
 
-    //한 게시판은 여러 댓글을 가질 수 있다.
-    @OneToMany(mappedBy = "replyBoard")
+    private Integer count;
+
+    //Board : Member (N : 1)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOARD_WRITER")
+    private Member member;
+
+    //Reply : Board (N : 1)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Reply> replies = new ArrayList<>();
 
-    //한 게시판은 여러 태그를 가질 수 있다.
-    @OneToMany(mappedBy = "boardTagBoard")
-    private List<Board_tag> tags = new ArrayList<>();
+    //BoardTag : Board (N : 1)
+    @OneToMany(mappedBy = "board")
+    private List<BoardTag> boardTags = new ArrayList<>();
+
+
+    @PrePersist
+    protected void onCreate() {
+        this.createDate = LocalDateTime.now();
+        this.count = 0;
+        if(this.status == null) {
+            this.status = CommonEnums.Status.Y;
+        }
+    }
 }
