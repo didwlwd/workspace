@@ -13,4 +13,5 @@ public interface BoardRepository {
     Page<Board> findByStatus(CommonEnums.Status status, Pageable pageable);
     Optional<Board> findByIdBoard(Long id);
     void deleteByIdBoard(Board board);
+    Long save(Board board);
 }

@@ -6,6 +6,7 @@ import com.kh.jpa.entity.Member;
 import com.kh.jpa.entity.Reply;
 import com.kh.jpa.enums.CommonEnums;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -62,29 +63,19 @@ public class BoardDto {
 
 
     @Getter
-    @Setter
-    @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Insert{
-        private Long board_no;
+    public static class Create{
         private String board_title;
         private String board_content;
-        private String origin_name;
-        private String change_name;
-        private int count;
-        //Integer? int? 상관없나?
-        private Member board_writer;
+        private String user_id;
+        private MultipartFile file;
+        private List<String> tags;
+
 
         public Board toEntity() {
             return Board.builder()
-                    .boardNo(board_no)
                     .boardTitle(board_title)
                     .boardContent(board_content)
-                    .originName(origin_name)
-                    .changeName(change_name)
-                    .count(count)
-                    .member(board_writer)
                     .build();
         }
     }

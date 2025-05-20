@@ -10,4 +10,5 @@ public interface BoardService {
     Page<BoardDto.Response> findAllBoards(Pageable pageable);
     BoardDto.Response findByIdBoard(Long id);
     Void deleteByIdBoard(Long id);
+    Long createBoard(BoardDto.Create boardCreate) throws Exception;
 }

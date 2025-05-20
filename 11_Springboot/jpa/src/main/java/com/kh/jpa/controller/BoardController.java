@@ -42,6 +42,9 @@ public class BoardController {
         return ResponseEntity.ok(boardService.deleteByIdBoard(id));
     }
 
-//    @PostMapping("/{id}/count")
+    @PostMapping
+    public ResponseEntity<Long> createBoard(@ModelAttribute BoardDto.Create boardCreate) throws Exception {
+        return ResponseEntity.ok(boardService.createBoard(boardCreate));
+    }
 
 }

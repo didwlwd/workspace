@@ -50,4 +50,10 @@ public class BoardRepositoryImpl implements BoardRepository {
     public void deleteByIdBoard(Board board) {
         em.remove(board);
     }
+
+    @Override
+    public Long save(Board board) {
+        em.persist(board);
+        return board.getBoardNo();
+    }
 }
