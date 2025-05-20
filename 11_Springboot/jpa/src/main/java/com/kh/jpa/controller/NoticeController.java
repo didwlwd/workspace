@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/notices")
 @RequiredArgsConstructor
@@ -17,9 +19,9 @@ public class NoticeController {
 
 
     //공지사항 추가
-    @PostMapping
-    public ResponseEntity<Long> addNotice(@RequestBody NoticeDto.Create noticeDto) {
-        Long noticeNo = noticeService.insert(noticeDto);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Long> addNotice(@PathVariable String userId, @RequestBody NoticeDto.Create noticeDto) {
+        Long noticeNo = noticeService.insert(noticeDto, userId);
 
         return ResponseEntity.ok(noticeNo);
     }
@@ -42,5 +44,11 @@ public class NoticeController {
     public ResponseEntity<Void> deleteNotice(@PathVariable Long noticeNo) {
         noticeService.delete(noticeNo);
         return ResponseEntity.ok().build();
+    }
+
+    //공지사항 타이틀로 찾기
+    @GetMapping("/search/title")
+    public ResponseEntity<List<NoticeDto.Response>> findNoticeByTitle(@RequestParam String title) {
+        return ResponseEntity.ok(noticeService.findByTitle(title));
     }
 }

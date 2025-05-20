@@ -19,11 +19,12 @@ public class NoticeDto {
         private String notice_title;
         private String notice_content;
 
-        public Notice toEntity(){
+        public Notice toEntity(Member member){
             return Notice.builder()
                     .noticeNo(notice_no)
                     .noticeTitle(notice_title)
                     .noticeContent(notice_content)
+                    .member(member)
                     .build();
         }
     }
