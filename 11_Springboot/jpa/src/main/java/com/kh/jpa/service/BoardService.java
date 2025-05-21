@@ -4,6 +4,7 @@ import com.kh.jpa.dto.BoardDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BoardService {
@@ -11,4 +12,5 @@ public interface BoardService {
     BoardDto.Response findByIdBoard(Long id);
     Void deleteByIdBoard(Long id);
     Long createBoard(BoardDto.Create boardCreate) throws Exception;
+    BoardDto.Response updateBoard(Long boardNo, BoardDto.Update boardUpdate) throws IOException;
 }

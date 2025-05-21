@@ -52,29 +52,35 @@ public class BoardServiceImpl implements BoardService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시판입니다."));
     }
 
+    @Transactional
     @Override
     public Void deleteByIdBoard(Long id) {
         Board board = boardRepository.findByIdBoard(id)
-                .orElseThrow(() -> new IllegalArgumentException(("존재하지 않는 게시판입니다.")));
+                .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
+
+        if(board.getChangeName() != null){
+            new File(UPLOAD_PATH + board.getChangeName()).delete();
+        }
 
         boardRepository.deleteByIdBoard(board);
         return null;
     }
 
+    @Transactional
     @Override
-    public Long createBoard(BoardDto.Create boardCreate) throws IOException {
+    public Long createBoard(BoardDto.Create createBoard) throws IOException {
         //게시글 작성
         //작성자 찾기 -> 객체지향코드를 작성할 것이기 때문에 key를 직접 외래키로 insert하지않고
         //작성자를 찾아 참조해준다.
 
-        Member member = memberRepository.findOne(boardCreate.getUser_id())
+        Member member = memberRepository.findOne(createBoard.getUser_id())
                 .orElseThrow(() -> new EntityNotFoundException("회원을 찾을 수 없습니다."));
 
         String changeName = null;
         String originName = null;
 
-        if(boardCreate.getFile() != null && !boardCreate.getFile().isEmpty()) {
-            originName = boardCreate.getFile().getOriginalFilename();
+        if(createBoard.getFile() != null && !createBoard.getFile().isEmpty()) {
+            originName = createBoard.getFile().getOriginalFilename();
             changeName = UUID.randomUUID().toString() + "_" + originName;
 
             File uploadDir  = new File(UPLOAD_PATH);
@@ -82,17 +88,17 @@ public class BoardServiceImpl implements BoardService {
                 uploadDir.mkdirs();
             }
 
-            boardCreate.getFile().transferTo(new File(UPLOAD_PATH + changeName));
+            createBoard.getFile().transferTo(new File(UPLOAD_PATH + changeName));
 
         }
 
-        Board board = boardCreate.toEntity();
+        Board board = createBoard.toEntity();
         board.changeMember(member);
         board.changeFile(originName, changeName);
 
-        if(boardCreate.getTags() != null && !boardCreate.getTags().isEmpty()) {
-            //tag가 왔다.
-            for(String tagName : boardCreate.getTags()) {
+        if(createBoard.getTags() != null && !createBoard.getTags().isEmpty()) {
+            //tag가 왔다. ["kh", "java", "쉬움"]
+            for(String tagName : createBoard.getTags()) {
                 //tag를 이름으로 조회해서 없으면 새로 만들어라.
                 Tag tag = tagRepository.findByTagName(tagName)
                         .orElseGet(() -> tagRepository.save(Tag.builder()
@@ -108,5 +114,59 @@ public class BoardServiceImpl implements BoardService {
         }
 
         return boardRepository.save(board);
+    }
+
+    @Override
+    public BoardDto.Response updateBoard(Long boardNo, BoardDto.Update boardUpdate) throws IOException {
+        Board board = boardRepository.findByIdBoard(boardNo)
+                .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
+
+
+        String changeName = board.getChangeName();
+        String originName = board.getOriginName();
+
+        if(boardUpdate.getFile() != null && !boardUpdate.getFile().isEmpty()) {
+            originName = boardUpdate.getFile().getOriginalFilename();
+            changeName = UUID.randomUUID().toString() + "_" + originName;
+
+            File uploadDir  = new File(UPLOAD_PATH);
+            if(!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            boardUpdate.getFile().transferTo(new File(UPLOAD_PATH + changeName));
+
+        }
+
+        board.changeContent(boardUpdate.getBoard_content());
+        board.changeTitle(boardUpdate.getBoard_title());
+        board.changeFile(originName, changeName);
+
+        if(boardUpdate.getTags() != null && !boardUpdate.getTags().isEmpty()) {
+            
+            //기존 BoardTag -> 연결이 끊기면 필요가 있을까? X
+            //연결된 boardTags의 영속성을 제거한다. -> orphanRemoval = true 설정이 되어있다면 실제 db에서 제거
+//            for(BoardTag boardTag : board.getBoardTags()){
+//                boardTagRepository.delete(boardTag);
+//            }
+            board.getBoardTags().clear(); //영속상태해제
+            
+            //tag가 왔다. ["kh", "java", "쉬움"]
+            for(String tagName : boardUpdate.getTags()) {
+                //tag를 이름으로 조회해서 없으면 새로 만들어라.
+                Tag tag = tagRepository.findByTagName(tagName)
+                        .orElseGet(() -> tagRepository.save(Tag.builder()
+                                .tagName(tagName)
+                                .build()));
+
+                BoardTag boardTag = BoardTag.builder()
+                        .tag(tag)
+                        .build();
+
+                boardTag.changeBoard(board);
+            }
+        }
+
+        return BoardDto.Response.toDto(board);
     }
 }

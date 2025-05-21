@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -39,12 +40,21 @@ public class BoardController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteByIdBoard(@PathVariable Long id) {
-        return ResponseEntity.ok(boardService.deleteByIdBoard(id));
+        boardService.deleteByIdBoard(id);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping
     public ResponseEntity<Long> createBoard(@ModelAttribute BoardDto.Create boardCreate) throws Exception {
         return ResponseEntity.ok(boardService.createBoard(boardCreate));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<BoardDto.Response> updateBoard(
+            @PathVariable("id") Long boardNo,
+            @ModelAttribute BoardDto.Update updateBoard
+    ) throws IOException {
+        return ResponseEntity.ok(boardService.updateBoard(boardNo, updateBoard));
     }
 
 }
