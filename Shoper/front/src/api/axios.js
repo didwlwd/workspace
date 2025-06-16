@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_CONFIG } from './config';
+
 const api = axios.create({
   baseURL: API_CONFIG.BASE_URL,
   timeout: API_CONFIG.TIMEOUT,
@@ -11,16 +12,15 @@ api.interceptors.response.use(
   (error) => {
     if (error.response) {
       //서버가 응답을 함
-      const { statue, data } = error.response;
-      switch (statue) {
+      const { status, data } = error.response;
+      switch (status) {
         case 401:
           //인증에러
           window.location.href = '/login';
           break;
-        case 402:
-          console.error('접근 권한이 없습니다.');
+        case 403:
+          console.error('접근권한이 없습니다.');
           break;
-
         case 404:
           console.error('요청한 리소스를 찾을 수 없습니다.');
           break;
@@ -34,8 +34,10 @@ api.interceptors.response.use(
       //요청은 했지만 응답을 받지 못함
       console.error('네트워크 에러 : ', error.request);
     } else {
-      console.error('에러', error.message);
+      console.error('에러 :', error.message);
     }
+
+    return Promise.reject(error);
   }
 );
 

@@ -96,5 +96,16 @@
       "isNew": true,
       "isPopular": false
     }
+  ],
+  "users": [
+    {
+      "id": "64ab",
+      "email": "qwe@naver.com",
+      "password": "qwe12345",
+      "username": "양동민",
+      "role": "user",
+      "createdAt": "2025-06-11T06:59:13.402Z",
+      "updatedAt": "2025-06-11T06:59:13.402Z"
+    }
   ]
 }

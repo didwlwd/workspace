@@ -8,35 +8,36 @@ const breakpoints = {
   xl: '1200px',
   '2xl': '1400px',
 };
+
 export const media = {
-  xs: (...arges) => css`
+  xs: (...args) => css`
     @media (min-width: ${breakpoints.xs}) {
-      ${css(...arges)}
+      ${css(...args)}
     }
   `,
-  sm: (...arges) => css`
+  sm: (...args) => css`
     @media (min-width: ${breakpoints.sm}) {
-      ${css(...arges)}
+      ${css(...args)}
     }
   `,
-  md: (...arges) => css`
+  md: (...args) => css`
     @media (min-width: ${breakpoints.md}) {
-      ${css(...arges)}
+      ${css(...args)}
     }
   `,
-  lg: (...arges) => css`
+  lg: (...args) => css`
     @media (min-width: ${breakpoints.lg}) {
-      ${css(...arges)}
+      ${css(...args)}
     }
   `,
-  xl: (...arges) => css`
+  xl: (...args) => css`
     @media (min-width: ${breakpoints.xl}) {
-      ${css(...arges)}
+      ${css(...args)}
     }
   `,
-  '2xl': (...arges) => css`
+  '2xl': (...args) => css`
     @media (min-width: ${breakpoints['2xl']}) {
-      ${css(...arges)}
+      ${css(...args)}
     }
   `,
 };

@@ -3,8 +3,17 @@ import { media } from '../MediaQueries';
 
 export const Card = styled.div`
   transition:
-    transform 0.2 ease,
-    box-shadow 0.2 ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  ${media.md`
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+  `}
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadows.md};
+  }
 `;
 
 export const CardImage = styled.div`
@@ -12,7 +21,7 @@ export const CardImage = styled.div`
   height: 160px;
   background-color: ${({ theme }) => theme.colors.gray[200]};
   background-image: ${({ src }) => (src ? `url(${src})` : 'none')};
-  background-size: cover; //비율유지하면서 꽉채워줘.
+  background-size: cover;
   background-position: center;
 
   ${media.md`
@@ -35,6 +44,17 @@ export const CardTitle = styled.h3`
   color: ${({ theme }) => theme.colors.gray[900]};
 
   ${media.md`
-     font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+  `}
+`;
+
+export const CardText = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.gray[600]};
+  margin-bottom: ${({ theme }) => theme.spacing[3]};
+
+  ${media.md`
+    font-size: ${({ theme }) => theme.fontSizes.base};
+    margin-bottom: ${({ theme }) => theme.spacing[4]};
   `}
 `;

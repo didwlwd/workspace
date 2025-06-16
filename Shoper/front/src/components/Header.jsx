@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import { SITE_CONFIG } from '../config/site';
 import { media } from '../styles/MediaQueries';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import useUserStore from '../store/userStore';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated } = useUserStore();
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
@@ -16,16 +19,31 @@ const Header = () => {
         <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)} />
 
         <MobileMenu $isOpen={isMenuOpen}>
-          <UserMenu>
-            <NavItem to="/login">로그인</NavItem>
-            <NavItem to="/signup">회원가입</NavItem>
-          </UserMenu>
+          {isAuthenticated && (
+            <UserProfile>
+              <UserName>{user?.username}님</UserName>
+            </UserProfile>
+          )}
           <Nav>
             <NavItem to="/">홈</NavItem>
             <NavItem to="/products">상품</NavItem>
             <NavItem to="/question">Q&A 게시판</NavItem>
           </Nav>
+
+          {isAuthenticated ? (
+            <UserMenu>
+              <NavItem to="/cart">장바구니</NavItem>
+              <NavItem to="/orders">주문내역</NavItem>
+              <NavItem to="/profile">회원정보</NavItem>
+            </UserMenu>
+          ) : (
+            <UserMenu>
+              <NavItem to="/login">로그인</NavItem>
+              <NavItem to="/signup">회원가입</NavItem>
+            </UserMenu>
+          )}
         </MobileMenu>
+
         {/* pc환경에서의 nav */}
         <DesktopNav>
           <NavItem to="/">홈</NavItem>
@@ -34,13 +52,34 @@ const Header = () => {
         </DesktopNav>
 
         <DesktopUserMenu>
-          <NavItem to="/login">로그인</NavItem>
-          <NavItem to="/signup">회원가입</NavItem>
+          {isAuthenticated ? (
+            <>
+              <NavItem to="/cart">장바구니</NavItem>
+              <NavItem to="/orders">주문내역</NavItem>
+              <NavItem to="/profile">{user?.username}님</NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem to="/login">로그인</NavItem>
+              <NavItem to="/signup">회원가입</NavItem>
+            </>
+          )}
         </DesktopUserMenu>
       </HeaderWrapper>
     </HeaderContainer>
   );
 };
+
+const UserProfile = styled.div`
+  display: flex;
+  align-items: center;
+  padding: ${({ theme }) => theme.spacing[4]};
+`;
+
+const UserName = styled.span`
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  color: ${({ theme }) => theme.colors.gray[800]};
+`;
 
 const HeaderContainer = styled.header`
   background: ${({ theme }) => theme.colors.white};
@@ -63,16 +102,26 @@ const Logo = styled(Link)`
   color: ${({ theme }) => theme.colors.primary};
 
   ${media.md`
-    font-size: ${({ theme }) => theme.fontSizes['2xl']};
+   font-size: ${({ theme }) => theme.fontSizes['2xl']}; 
   `}
 `;
+
 const DesktopNav = styled.nav`
   display: none;
   gap: ${({ theme }) => theme.spacing[8]};
 
   ${media.md`
-    display : flex;
-  `}
+        display: flex;
+    `}
+`;
+
+const DesktopUserMenu = styled.nav`
+  display: none;
+  gap: ${({ theme }) => theme.spacing[8]};
+
+  ${media.md`
+        display: flex;
+    `}
 `;
 
 const NavItem = styled(Link)`
@@ -85,15 +134,6 @@ const NavItem = styled(Link)`
   }
 `;
 
-const DesktopUserMenu = styled.nav`
-  display: none;
-  gap: ${({ theme }) => theme.spacing[8]};
-
-  ${media.md`
-    display : flex;
-  `}
-`;
-
 const MenuButton = styled(GiHamburgerMenu)`
   width: 30px;
   height: 30px;
@@ -101,8 +141,8 @@ const MenuButton = styled(GiHamburgerMenu)`
   z-index: 10;
 
   ${media.md`
-    display : none;
-  `}
+        display: none;
+    `}
 `;
 
 const MobileMenu = styled.div`
@@ -124,8 +164,8 @@ const MobileMenu = styled.div`
   overflow-y: auto;
 
   ${media.md`
-    display : none;
-  `}
+        display: none;
+    `}
 `;
 
 const Nav = styled.nav`

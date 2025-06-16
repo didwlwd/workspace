@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SITE_CONFIG } from '../config/site';
+
 const Footer = () => {
   return (
     <FooterContainer>
@@ -8,17 +9,17 @@ const Footer = () => {
         <FooterSection>
           <FooterTitle>고객센터</FooterTitle>
           <FooterContent>
-            <p>전화 : {SITE_CONFIG.contact.phone}</p>
-            <p>이메일 : {SITE_CONFIG.contact.email}</p>
-            <p>운영시간 : {SITE_CONFIG.contact.runtime}</p>
+            <p>전화: {SITE_CONFIG.contact.phone}</p>
+            <p>이메일: {SITE_CONFIG.contact.email}</p>
+            <p>운영시간: {SITE_CONFIG.contact.runtime}</p>
           </FooterContent>
         </FooterSection>
         <FooterSection>
           <FooterTitle>회사정보</FooterTitle>
           <FooterContent>
-            <p>상호명 : {SITE_CONFIG.name}</p>
-            <p>대표 : {SITE_CONFIG.info.ceo}</p>
-            <p>사업자등록번호 : {SITE_CONFIG.info.company_number}</p>
+            <p>상호명: {SITE_CONFIG.name}</p>
+            <p>대표: {SITE_CONFIG.info.ceo}</p>
+            <p>사업자등록번호: {SITE_CONFIG.info.company_number}</p>
           </FooterContent>
         </FooterSection>
         <FooterSection>
@@ -36,7 +37,7 @@ const Footer = () => {
 
 const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.colors.gray[100]};
-  padding: ${({ theme }) => theme.spacing[8]}0;
+  padding: ${({ theme }) => theme.spacing[8]} 0;
 `;
 
 const FooterWrapper = styled.div`

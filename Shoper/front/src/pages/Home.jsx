@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import { SITE_CONFIG } from '../config/site';
 import { media } from '../styles/MediaQueries';
 import { productService } from '../api/products';
-import { GridContainer, Section } from '../styles/common/Container';
+import { Container, GridContainer, Section } from '../styles/common/Container';
 import { Price, Title } from '../styles/common/Typography';
 import { Card, CardContent, CardImage, CardTitle } from '../styles/common/Card';
 import { toast } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
-import theme from '../styles/theme';
 
 const Home = () => {
-  const [popularProducts, setpopularProducts] = useState([]);
+  const [popularProducts, setPopularProdeucts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +22,7 @@ const Home = () => {
         const products = await productService.getProducts();
         console.log(products);
         setNewProducts(products.filter((p) => p.isNew));
-        setpopularProducts(products.filter((p) => p.isPopular));
+        setPopularProdeucts(products.filter((p) => p.isPopular));
       } catch (error) {
         console.error(error);
         const errorMessage = '상품을 불러오는데 실패했습니다.';
@@ -40,7 +39,7 @@ const Home = () => {
   if (loading) {
     return (
       <LoadingContainer>
-        <ThemedLoader size={50} aria-label="Loading Spinner" />
+        <ThemedLodader size={50} aria-label="Loading Spinner" />
       </LoadingContainer>
     );
   }
@@ -50,7 +49,7 @@ const Home = () => {
   }
 
   return (
-    <>
+    <Container>
       <Banner>
         <div>
           <BannerTitle>{SITE_CONFIG.name}</BannerTitle>
@@ -59,11 +58,11 @@ const Home = () => {
       </Banner>
 
       <Section>
-        <Title>인기상품</Title>
+        <Title>인기 상품</Title>
         <GridContainer>
           {popularProducts.map((product) => (
             <Card>
-              <CardImage src={product.image} alt="" />
+              <CardImage src={product.image} />
               <CardContent>
                 <CardTitle>{product.name}</CardTitle>
                 <Price>{Number(product.price).toLocaleString()}원</Price>
@@ -78,7 +77,7 @@ const Home = () => {
         <GridContainer>
           {newProducts.map((product) => (
             <Card>
-              <CardImage src={product.image} alt="" />
+              <CardImage src={product.image} />
               <CardContent>
                 <CardTitle>{product.name}</CardTitle>
                 <Price>{Number(product.price).toLocaleString()}원</Price>
@@ -87,7 +86,7 @@ const Home = () => {
           ))}
         </GridContainer>
       </Section>
-    </>
+    </Container>
   );
 };
 
@@ -121,9 +120,7 @@ const LoadingContainer = styled.div`
   align-items: center;
   min-height: 100vh;
 `;
-
-const ThemedLoader = styled(ClipLoader)`
+const ThemedLodader = styled(ClipLoader)`
   color: ${({ theme }) => theme.colors.primary};
 `;
-
 export default Home;
